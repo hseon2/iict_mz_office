@@ -7,7 +7,7 @@ let alertCloseButton;
 let nameInput;
 let gameStarted = false;
 let player;
-let scene = 8;
+let scene = -1;
 let miniGame = 0;
 let detail = 0;
 let dialogueTimer = 0;
@@ -86,7 +86,7 @@ function setup() {
   createNameInput();
   setupAirpods();
   angleMode(DEGREES);
-  player = new Player("임시");
+  // player = new Player("임시");
 
   // 텍스트 생성 속도
   frameRate(speedText);
