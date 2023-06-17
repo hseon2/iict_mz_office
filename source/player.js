@@ -74,7 +74,7 @@ class Alert {
   }
 
   create() {
-    image(img_alert, width/2, height/2);
+    image(img_alert, width/2, height/2, width, height);
     textFont(font_regular);
     fill(255);
     textSize(26);

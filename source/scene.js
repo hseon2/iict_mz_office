@@ -211,9 +211,31 @@ function scene3() {
       break;
     case 5:
       image(bg_office, width / 2, height / 2);
-      strokeWeight(1);
-      alert = new Alert("'능력’스텟을 " + score + "만큼 획득하셨습니다");
-      alert.create();
+      if (gameover) {
+        if (life === 0) {
+          alert = new Alert(
+            "실수를 5회 이상 하여 업무능력이 감소했습니다.\n멘탈이 부서져 정신력이 감소했습니다.\n\n'업무능력' : -15, '정신력' : -20\n"
+          );
+          alert.create();
+        } else {
+          alert = new Alert(
+            "시간 내에 문서를 작성하지 못하여 업무능력이 감소했습니다.\n멘탈이 부서져 정신력이 감소했습니다.\n\n'업무능력' : -25, '정신력' : -10\n"
+          );
+          alert.create();
+        }
+      } else if (gameclear) {
+        if (life === 5) {
+          alert = new Alert(
+            "제한 시간 내에 문서를 작성하여 업무능력이 상승했습니다.\n실수 없이 문서를 작성하여 과장님이 매우 흡족해합니다.\n\n'업무능력' : +30, '대인관계' : +20\n"
+          );
+          alert.create();
+        } else {
+          alert = new Alert(
+            "제한 시간 내에 문서를 작성하여 업무능력이 상승했습니다.\n\n'업무능력' : +30\n"
+          );
+          alert.create();
+        }
+      }
       break;
   }
 }

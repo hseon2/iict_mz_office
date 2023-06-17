@@ -1,65 +1,154 @@
-let missions = ['d', 'r', 'a', 'f', 'h']; // 미션 키 배열
-let missionIndex = 0; // 현재 미션 인덱스
-let completedMissions = 0; // 완료된 미션 수
+let d = 68;
+let t = 84;
+let s = 83;
+let left = 37;
+let up = 38;
+let right = 39;
+let down = 40;
+let enter = 13;
+let missions = [
+  down,
+  down,
+  d,
+  right,
+  down,
+  enter,
+  enter,
+  enter,
+  enter,
+  right,
+  right,
+  up,
+  left,
+  up,
+  right,
+  up,
+  left,
+  up,
+  right,
+  enter,
+  t,
+  s,
+];
 
-// 이미지를 담을 객체
-let images = {};
+let excel_stage = 1;
+let life = 5;
 
-let timer = 30; // 제한 시간(초)
-let startTime;
+let excel_timer = 0;
+let excel_playtime = 15;
+let gameover = false;
+let gameclear = false;
 
 function Excel() {
-  background(0);
-  startTime += deltaTime;
+  console.log(life);
+  resetButton.hide();
+  endingButton.hide();
+  excel_timer += deltaTime / 1000;
+  let timer_w = (excel_playtime - excel_timer) / excel_playtime;
 
-  // 미션 이미지 그리기
-  drawMissionImage(missions[missionIndex], width / 2, height / 4);
-
-  // 미션 수행 횟수 표시
-  textSize(30);
-  fill(255);
-  textAlign(CENTER);
-  text(completedMissions + '/' + missions.length, width - 50, 50);
-
-  // 타이머 바 표시
-  let elapsedSeconds = (millis() - startTime) / 1000;
-  let remainingSeconds = max(timer - elapsedSeconds, 0);
-  let barWidth = (remainingSeconds / timer) * width;
-  fill(255, 0, 0);
-  rect(0, height - 40, barWidth, 40);
-
-  // 제한 시간 초과 또는 모든 미션 완료 시 게임 종료
-  if (remainingSeconds <= 0 || completedMissions === missions.length) {
-    showScoreScreen();
+  if (timer_w <= 0) {
+    gameover = true;
   }
-}
 
-function keyPressed() {
-  let currentMission = missions[missionIndex];
-  if (key === currentMission) {
-    missionIndex++;
-    completedMissions++;
-    if (missionIndex >= missions.length) {
-      missionIndex = 0;
+  if (!gameover) {
+    switch (excel_stage) {
+      case 1:
+        image(excel_1, width / 2, height / 2, width, height);
+        break;
+      case 2:
+        image(excel_2, width / 2, height / 2, width, height);
+        break;
+      case 3:
+        image(excel_3, width / 2, height / 2, width, height);
+        break;
+      case 4:
+        image(excel_4, width / 2, height / 2, width, height);
+        break;
+      case 5:
+        image(excel_5, width / 2, height / 2, width, height);
+        break;
+      case 6:
+        image(excel_6, width / 2, height / 2, width, height);
+        break;
+      case 7:
+        image(excel_7, width / 2, height / 2, width, height);
+        break;
+      case 8:
+        image(excel_8, width / 2, height / 2, width, height);
+        break;
+      case 9:
+        image(excel_9, width / 2, height / 2, width, height);
+        break;
+      case 10:
+        image(excel_10, width / 2, height / 2, width, height);
+        break;
+      case 11:
+        image(excel_11, width / 2, height / 2, width, height);
+        break;
+      case 12:
+        image(excel_12, width / 2, height / 2, width, height);
+        break;
+      case 13:
+        image(excel_13, width / 2, height / 2, width, height);
+        break;
+      case 14:
+        image(excel_14, width / 2, height / 2, width, height);
+        break;
+      case 15:
+        image(excel_15, width / 2, height / 2, width, height);
+        break;
+      case 16:
+        image(excel_16, width / 2, height / 2, width, height);
+        break;
+      case 17:
+        image(excel_17, width / 2, height / 2, width, height);
+        break;
+      case 18:
+        image(excel_18, width / 2, height / 2, width, height);
+        break;
+      case 19:
+        image(excel_19, width / 2, height / 2, width, height);
+        break;
+      case 20:
+        image(excel_20, width / 2, height / 2, width, height);
+        break;
+      case 21:
+        image(excel_21, width / 2, height / 2, width, height);
+        break;
+      case 22:
+        image(excel_22, width / 2, height / 2, width, height);
+        break;
+      case 23:
+        image(excel_22, width / 2, height / 2, width, height);
+        gameclear = true;
+        timer_w = 705;
+        break;
     }
   }
-}
+  if (life === 5) {
+    image(excel_life5, width / 2, height / 2, width, height);
+  } else if (life === 4) {
+    image(excel_life4, width / 2, height / 2, width, height);
+  } else if (life === 3) {
+    image(excel_life3, width / 2, height / 2, width, height);
+  } else if (life === 2) {
+    image(excel_life2, width / 2, height / 2, width, height);
+  } else if (life === 1) {
+    image(excel_life1, width / 2, height / 2, width, height);
+  } else {
+    gameover = true;
+    timer_w = 0;
+  }
+  image(excel_header1, width / 2, height / 2, width, height);
+  fill(255, 237, 190);
+  rect(70, 30, timer_w * 705, 30);
+  image(excel_header2, width / 2, height / 2, width, height);
 
-function drawMissionImage(missionKey, x, y) {
-  let missionImage = images[missionKey];
-  imageMode(CENTER);
-  let imageSize = min(missionImage.width, missionImage.height, 400);
-  let imageX = width / 2;
-  let imageY = height / 2;
-  image(missionImage, imageX, imageY, imageSize, imageSize);
-}
-
-
-function showScoreScreen() {
-  // 스코어 화면 그리기
-  background(0);
-  textSize(50);
-  fill(255);
-  textAlign(CENTER);
-  text('Score: ' + completedMissions, width / 2, height / 2);
+  if (gameover) {
+    image(excel_over, width / 2, height / 2, width, height);
+    showDialogueNextButton();
+  } else if (gameclear) {
+    image(excel_clear, width / 2, height / 2, width, height);
+    showDialogueNextButton();
+  }
 }
