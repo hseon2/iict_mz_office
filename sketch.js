@@ -188,7 +188,7 @@ function preload() {
   excel_life5 = loadImage("assets/excel_life5.png");
   excel_clear = loadImage("assets/excel_clear.png");
   excel_over = loadImage("assets/excel_over.png");
-
+  //
   //에어팟 게임
   img_start = loadImage("assets/startpage.png");
   img_airpods1 = loadImage("assets/airpods1.png");
