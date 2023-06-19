@@ -41,7 +41,7 @@ let playBgmGameover = false;
 
 function preload() {
   excel = loadImage("assets/excel.png");
-  soundFormats("mp3", "ogg", "wav");
+  soundFormats("mp3", "ogg", "wav", "MP3");
   //사운드
   sound_meeting = loadSound("assets/tube2.mp3");
   sound_hungry = loadSound("sound/꼬르륵 소리.mp3");
@@ -63,7 +63,7 @@ function preload() {
   bgm_early = loadSound("sound/배경음악_초반.mp3");
   bgm_middle = loadSound("sound/배경음악_뒷담장면.mp3");
   bgm_later = loadSound("sound/배경음악_후반부.mp3");
-  bgm_minigame = loadSound("sound/배경음악_미니.mp3");
+  bgm_minigame = loadSound("sound/배경음악_미니");
 
   //배경화면
   bg_single = loadImage("assets/singleColor.png");
