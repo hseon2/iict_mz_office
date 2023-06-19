@@ -41,7 +41,7 @@ let playBgmGameover = false;
 
 function preload() {
   excel = loadImage("assets/excel.png");
-  soundFormats("mp3", "ogg", "wav");
+  soundFormats("mp3", "ogg", "wav", "MP3");
   //사운드
   sound_meeting = loadSound("assets/tube2.mp3");
   sound_hungry = loadSound("sound/꼬르륵 소리.mp3");
