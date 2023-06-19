@@ -62,9 +62,7 @@ function preload() {
   bgm_early = loadSound("sound/배경음악_초반.mp3");
   bgm_middle = loadSound("sound/배경음악_뒷담장면.mp3");
   bgm_later = loadSound("sound/배경음악_후반부.mp3");
-  bgm_minigame = loadSound(
-    "https://hseon2.github.io/iict_mz_office/sound/배경음악_미니게임.mp3"
-  );
+  bgm_minigame = loadSound("sound/배경음악_미니게임.mp3");
 
   //배경화면
   bg_single = loadImage("assets/singleColor.png");
