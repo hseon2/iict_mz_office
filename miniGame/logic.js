@@ -1,8 +1,10 @@
 function keyPressed() {
   if (miniGame === 1) {
     if (keyCode == missions[excel_stage - 1]) {
+      sound_keyboard.play();
       excel_stage++;
     } else {
+      sound_mistake.play();
       life--;
     }
     console.log(keyCode);
@@ -17,7 +19,6 @@ function mouseClicked() {
   if (miniGame === 3) {
     let w = 220;
     let h = 380;
-    console.log(mouseX, mouseY);
 
     if (!peerState.p1) {
       if (
@@ -27,7 +28,9 @@ function mouseClicked() {
         mouseY < 218 + h
       ) {
         peerState.p1 = true;
-        // mySound.play();
+        if (isMinigamePlaying){
+          sound_meeting.play();
+        }
         meetingScore += 5;
       }
     }
@@ -40,7 +43,9 @@ function mouseClicked() {
         mouseY < 218 + h
       ) {
         peerState.p2 = true;
-        // mySound.play();
+        if (isMinigamePlaying){
+          sound_meeting.play();
+        }
         meetingScore += 5;
       }
     }
@@ -53,7 +58,9 @@ function mouseClicked() {
         mouseY < 218 + h
       ) {
         peerState.p3 = true;
-        // mySound.play();
+        if (isMinigamePlaying){
+          sound_meeting.play();
+        }
         meetingScore += 5;
       }
     }
@@ -66,7 +73,9 @@ function mouseClicked() {
         mouseY < 218 + h
       ) {
         peerState.p4 = true;
-        // mySound.play();
+        if (isMinigamePlaying){
+          sound_meeting.play();
+        }
         meetingScore += 5;
       }
     }

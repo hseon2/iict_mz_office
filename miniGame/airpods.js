@@ -7,6 +7,7 @@ let earphoneSpeed = 7;
 let earphoneDirection = 1;
 let millisecond;
 let decibels;
+let airpodsOff = false;
 
 let decibelMax = 115;
 
@@ -51,6 +52,10 @@ function Airpods() {
 
     if (decibels > decibelMax) {
       isDecibelExceeded = true;
+      if (!airpodsOff){
+        sound_airpods.play();
+        airpodsOff = true;
+      }
     }
   } else {
     showNextButton();

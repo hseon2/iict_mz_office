@@ -98,8 +98,6 @@ function createEndingButton() {
   endingButton.hide();
 }
 
-
-
 function showStartButton() {
   startButton.show();
   startButton.size(220, 80);
@@ -114,6 +112,7 @@ function showStartButton() {
 
   startButton.style("textFont", font_regular);
   startButton.mousePressed(() => {
+    sound_close.play();
     if (!gameStarted) {
       gameStarted = true;
       startButton.hide();
@@ -130,12 +129,15 @@ function showNextButton() {
   }
   nextButton.position(1180, 612);
   nextButton.mousePressed(() => {
+    sound_next.play();
     scene++;
     detail = 0;
     dialogueTimer = 0;
     textCounter = 0;
     nextButton.hide();
     loop();
+    sound.stop();
+    isPlaying = false;
   });
 }
 
@@ -145,6 +147,7 @@ function showDialogueNextButton() {
   }
   dialogueNextButton.position(1180, 612);
   dialogueNextButton.mousePressed(() => {
+    sound_next.play();
     detail++;
     dialogueTimer = 0;
     textCounter = 0;
@@ -157,9 +160,11 @@ function showAlertCloseButton() {
   alertCloseButton.show();
   alertCloseButton.position(640 - 155 / 2, 465);
   alertCloseButton.mousePressed(() => {
+    sound_close.play();
     alertCloseButton.hide();
     scene++;
     detail = 0;
+    showAlert = false;
   });
 }
 
@@ -207,5 +212,7 @@ function showEndingButton() {
     dialogueTimer = 0;
     scene = 100;
     ending();
+    sound.stop();
+    isPlaying = false;
   });
 }

@@ -79,9 +79,13 @@ class Alert {
   }
 
   create() {
+    if (!showAlert){
+      sound_alert.play();
+      showAlert = true;
+    }
     image(img_alert, width / 2, height / 2, width, height);
     textFont(font_regular);
-    fill(255);
+    fill(252, 255, 87);
     textSize(27);
     textLeading(40);
     textStyle(NORMAL);

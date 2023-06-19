@@ -124,6 +124,7 @@ function Excel() {
   } else {
     image(excel_22, width / 2, height / 2, width, height);
   }
+
   if (life === 5) {
     image(excel_life5, width / 2, height / 2, width, height);
   } else if (life === 4) {
@@ -144,8 +145,15 @@ function Excel() {
   image(excel_header2, width / 2, height / 2, width, height);
 
   if (gameover) {
+    bgm_minigame.stop();
+    playBgmMinigame = false;
     image(excel_over, width / 2, height / 2, width, height);
     showDialogueNextButton();
+    if (!isPlaying) {
+      sound_fail.play();
+      isPlaying = true;
+    }
+
     dialogueNextButton.mousePressed(() => {
       detail++;
       dialogueTimer = 0;
@@ -157,8 +165,14 @@ function Excel() {
       loop();
     });
   } else if (gameclear) {
+    bgm_minigame.stop();
+    playBgmMinigame = false;
     image(excel_clear, width / 2, height / 2, width, height);
     showDialogueNextButton();
+    if (!isPlaying) {
+      sound_clear.play();
+      isPlaying = true;
+    }
     dialogueNextButton.mousePressed(() => {
       detail++;
       dialogueTimer = 0;

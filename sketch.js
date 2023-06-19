@@ -18,30 +18,60 @@ let selection2_1;
 let selection2_2;
 let alert;
 let textCounter = 0;
-let speedText = 100;
+let speedText = 120;
 let isInConversation;
 let day = 1;
 let tp = 255;
 let playtime = 0;
 let mnm = false;
 let coffee = false;
-
 let audioContext;
 let audioSource;
-
 let isGameOver = false;
+let isPlaying = false;
+let isMinigamePlaying = false;
+let showAlert = false;
+
+let playBgmStart = false;
+let playBgmEarly = false;
+let playBgmMiddle = false;
+let playBgmLater = false;
+let playBgmMinigame = false;
+let playBgmGameover = false;
 
 function preload() {
   excel = loadImage("assets/excel.png");
   soundFormats("mp3", "ogg");
-  mySound = loadSound("assets/tube2.mp3");
+  sound_meeting = loadSound("assets/tube2.mp3");
+  sound_hungry = loadSound("sound/꼬르륵 소리.mp3");
+  sound_gameover = loadSound("sound/사표내기 or 게임오버.mp3");
+  sound_bird = loadSound("sound/새소리.mp3");
+  sound_clock = loadSound("sound/시계 째깍째깍 소리.mp3");
+  sound_alarm = loadSound("sound/알람소리.mp3");
+  sound_airpods = loadSound("sound/에어팟 뽑는 소리.mp3");
+  sound_ending = loadSound("sound/엔딩 축하 사운드.mp3");
+  sound_keyboard = loadSound("sound/키보드 소리.mp3");
+  sound_mistake = loadSound("sound/실수.mp3");
+  sound_clear = loadSound("sound/성공.mp3");
+  sound_fail = loadSound("sound/게임오버.mp3");
+  sound_next = loadSound("sound/다음으로.wav");
+  sound_close = loadSound("sound/알림닫기.wav");
+  sound_alert = loadSound("sound/알림창.wav");
 
+  bgm_start = loadSound("sound/배경음악_시작.mp3");
+  bgm_early = loadSound("sound/배경음악_초반.mp3");
+  bgm_middle = loadSound("sound/배경음악_뒷담장면.mp3");
+  bgm_later = loadSound("sound/배경음악_후반부.mp3");
+  bgm_minigame = loadSound("sound/배경음악_미니게임.mp3");
+
+  //배경화면
   bg_single = loadImage("assets/singleColor.png");
   bg_room_morning = loadImage("assets/playerRoomMorning.png");
   bg_room_noon = loadImage("assets/playerRoomNoon.png");
   bg_office = loadImage("assets/office.png");
   bg_rooftop = loadImage("assets/bg_rooftop.png");
 
+  //시계
   clock_2 = loadImage("assets/clock_2.png");
   clock_4 = loadImage("assets/clock_4.png");
   clock_6 = loadImage("assets/clock_6.png");
@@ -49,11 +79,13 @@ function preload() {
   clock_1 = loadImage("assets/clock_1.png");
   clock_9 = loadImage("assets/clock_9.png");
 
+  //시작화면
   player_name = loadImage("assets/player_name.png");
   game_rules = loadImage("assets/game_rules.png");
   game_rules1 = loadImage("assets/game_rules1.png");
   game_rules2 = loadImage("assets/game_rules2.png");
 
+  //캐릭터
   player_clean = loadImage("assets/player_clean.png");
   player_sad = loadImage("assets/player_sad.png");
   player_dirty = loadImage("assets/player_dirty.png");
@@ -66,9 +98,11 @@ function preload() {
   boss2 = loadImage("assets/boss2.png");
   boss2_happy = loadImage("assets/boss2_happy.png");
 
+  //대사창 및 알림창
   img_dialogue = loadImage("assets/dialogue.png");
   img_alert = loadImage("assets/alert.png");
 
+  //헤더
   game_header = loadImage("assets/game_header.png");
   game_header2 = loadImage("assets/game_header2.png");
   main_header = loadImage("assets/header_main.png");
@@ -86,6 +120,7 @@ function preload() {
   money5 = loadImage("assets/money5.png");
   money6 = loadImage("assets/money6.png");
 
+  //분기점
   img_selection1 = loadImage("assets/selection1.png");
   img_selection1_1 = loadImage("assets/selection1-1.png");
   img_selection1_2 = loadImage("assets/selection1-2.png");
@@ -103,6 +138,7 @@ function preload() {
   img_selection4_1 = loadImage("assets/selection4-1.png");
   img_selection4_2 = loadImage("assets/selection4-2.png");
 
+  //탕비실
   coffee_desk = loadImage("assets/coffee_desk.png");
   coffee_basic = loadImage("assets/coffee_basic.png");
   coffee_hover = loadImage("assets/coffee_hover.png");
@@ -153,11 +189,13 @@ function preload() {
   excel_clear = loadImage("assets/excel_clear.png");
   excel_over = loadImage("assets/excel_over.png");
 
+  //에어팟 게임
   img_start = loadImage("assets/startpage.png");
   img_airpods1 = loadImage("assets/airpods1.png");
   img_airpods2 = loadImage("assets/airpods2.png");
   img_airpods3 = loadImage("assets/airpods3.png");
 
+  //회의실 딴짓 적발 게임
   peer1 = loadImage("assets/meeting1.png");
   peer11 = loadImage("assets/meeting11.png");
   peer2 = loadImage("assets/meeting2.png");
@@ -174,6 +212,7 @@ function preload() {
   meeting_frame = loadImage("assets/frame3.png");
   meeting_room = loadImage("assets/conferenceRoom.png");
 
+  //경조금 게임
   wedding_card = loadImage("assets/wedding_card.png");
   wedding_bg = loadImage("assets/wedding_bg.png");
   wedding_1 = loadImage("assets/wedding_1.png");
@@ -182,6 +221,7 @@ function preload() {
   wedding_4 = loadImage("assets/wedding_4.png");
   wedding_5 = loadImage("assets/wedding_5.png");
 
+  //엔딩
   ending_bg = loadImage("assets/ending_bg.png");
   ending_good = loadImage("assets/ending_good.png");
   ending_sad = loadImage("assets/ending_sad.png");
@@ -220,6 +260,8 @@ function setup() {
 
 function draw() {
   // console.log(scene);
+  speedText = 100;
+
   if (gameStarted && !isGameOver) {
     if (player) {
       player.stat_list["체력"] -= 0.005;

@@ -28,6 +28,10 @@ function showStartPage() {
 
 // 오프닝 장면
 function showOpening() {
+  if (!playBgmStart) {
+    bgm_start.play();
+    playBgmStart = true;
+  }
   switch (detail) {
     case 0:
       image(bg_single, width / 2, height / 2);
@@ -64,20 +68,31 @@ function startGame() {
 
 // 분기점 1
 function scene1() {
+  bgm_start.stop();
+
   switch (detail) {
     case 0:
       dialogueTimer += deltaTime;
       image(bg_room_noon, width / 2, height / 2);
       if (dialogueTimer <= 2000) {
-        //침대 옆에 비치된 미니 책상 위에 놓여있는 아이폰 알람이 따라라랑 울리는 장
+        if (!isPlaying) {
+          sound_alarm.play();
+          isPlaying = true;
+        }
         fill(0, 0, 0, tp);
         rectMode(CORNER);
         rect(0, 0, width, height);
       } else if (dialogueTimer > 2000 && dialogueTimer <= 4000) {
+        sound_alarm.pause();
+        isPlaying = false;
         tp -= 10;
         fill(0, 0, 0, tp);
         rect(0, 0, width, height);
       } else if (dialogueTimer > 4000) {
+        if (!isPlaying) {
+          sound_bird.play();
+          isPlaying = true;
+        }
         image(bg_room_morning, width / 2, height / 2);
         showScene1Dialogue1();
         tp = 255;
@@ -93,6 +108,8 @@ function scene1() {
       break;
     case 3:
       //지하철+킥보드
+      sound_bird.pause();
+      isPlaying = false;
       image(bg_office, width / 2, height / 2);
       strokeWeight(1);
       alert = new Alert(
@@ -102,6 +119,8 @@ function scene1() {
       break;
     case 4:
       //택시
+      sound_bird.pause();
+      isPlaying = false;
       image(bg_office, width / 2, height / 2);
       strokeWeight(1);
       alert = new Alert(
@@ -111,6 +130,8 @@ function scene1() {
       break;
     case 5:
       //따릉
+      sound_bird.pause();
+      isPlaying = false;
       image(bg_office, width / 2, height / 2);
       strokeWeight(1);
       alert = new Alert(
@@ -123,6 +144,10 @@ function scene1() {
 
 // 장면 2
 function scene2() {
+  if (!playBgmEarly) {
+    bgm_early.play();
+    playBgmEarly = true;
+  }
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
@@ -167,7 +192,7 @@ function scene2() {
       background(255);
       image(bg_office, width / 2, height / 2);
       alert = new Alert(
-        "한정식을 배불리 먹어 '체력'이 20 상승했습니다.\n동기들과 함깨하지 못하여 '대인관계'가 한 단계 하락했습니다.\n"
+        "한정식을 배불리 먹어 '체력'이 20 상승했습니다.\n동기들과 함께하지 못하여 '대인관계'가 한 단계 하락했습니다.\n"
       );
       alert.create();
       break;
@@ -204,12 +229,21 @@ function scene3() {
       break;
     case 4:
       if (miniGame === 1) {
+        bgm_early.pause();
+        playBgmEarly = false;
+        if (!playBgmMinigame) {
+          bgm_minigame.play();
+          playBgmMinigame = true;
+        }
         Excel();
       } else {
         excelOpening();
       }
       break;
     case 5:
+      isPlaying = false;
+      bgm_minigame.stop();
+      playBgmMinigame = false;
       image(bg_office, width / 2, height / 2);
       if (gameover) {
         if (life === 0) {
@@ -242,6 +276,10 @@ function scene3() {
 }
 
 function scene4() {
+  if (!playBgmEarly) {
+    bgm_early.play();
+    playBgmEarly = true;
+  }
   day = 3;
   switch (detail) {
     case 0:
@@ -267,6 +305,11 @@ function scene4() {
 }
 
 function scene5() {
+  bgm_early.stop();
+  if (!playBgmMiddle) {
+    bgm_middle.play();
+    playBgmMiddle = true;
+  }
   day = 3;
   switch (detail) {
     case 0:
@@ -329,17 +372,25 @@ function scene7() {
 }
 
 function scene8() {
+  bgm_middle.stop();
+  playBgmMiddle = false;
   day = 3;
   switch (detail) {
     case 0:
       dialogueTimer += deltaTime;
       if (dialogueTimer <= 2000) {
+        if (!isPlaying) {
+          sound_clock.play();
+          isPlaying = true;
+        }
         tp -= 10;
         image(clock_4, width / 2, height / 2, width, height);
 
         fill(0, 0, 0, tp);
         rect(0, 0, width, height);
       } else {
+        sound_clock.pause();
+        isPlaying = false;
         image(clock_4, width / 2, height / 2, width, height);
         showScene8Dialogue1();
       }
@@ -355,8 +406,17 @@ function scene8() {
       if (miniGame === 3) {
         dialogueTimer += deltaTime;
         if (dialogueTimer <= 20000) {
+          if (!playBgmMinigame) {
+            bgm_minigame.play();
+            playBgmMinigame = true;
+          }
+          isMinigamePlaying = true;
           Meeting();
         } else {
+          isMinigamePlaying = false;
+          bgm_minigame.stop();
+          playBgmMinigame = false;
+
           image(meeting_frame, width / 2, height / 2, width, height);
           image(meeting_room, width / 2, height / 2, width, height);
           image(meeting_boss4, width / 2, height / 2, width, height);
@@ -388,6 +448,10 @@ function scene8() {
 }
 
 function scene9() {
+  if (!playBgmMiddle) {
+    bgm_middle.play();
+    playBgmMiddle = true;
+  }
   day = 4;
   switch (detail) {
     case 0:
@@ -493,7 +557,12 @@ function scene10() {
 }
 
 function scene11() {
-  day = 5;
+  bgm_middle.stop();
+  if (!playBgmLater) {
+    bgm_later.play();
+    playBgmLater = true;
+  }
+  day = 4;
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
@@ -545,6 +614,12 @@ function scene11() {
       break;
     case 8:
       if (miniGame === 4) {
+        bgm_later.stop();
+        playBgmLater = false;
+        if (!playBgmMinigame) {
+          bgm_minigame.play();
+          playBgmMinigame = true;
+        }
         Wedding();
       } else {
         weddingOpening();
@@ -552,6 +627,12 @@ function scene11() {
       showHeader();
       break;
     case 9:
+      bgm_minigame.stop();
+      playBgmMinigame = false;
+      if (!playBgmLater) {
+        bgm_later.play();
+        playbgmlater = true;
+      }
       image(bg_office, width / 2, height / 2, width, height);
       image(co_2, width / 2, height / 2, width, height);
       showScene11Dialogue8();
@@ -599,12 +680,16 @@ function scene12() {
       showScene12Dialogue2();
       break;
     case 2:
+      if (!isPlaying) {
+        sound_clock.play();
+        isPlaying = true;
+      }
       dialogueTimer += deltaTime;
       if (dialogueTimer <= 3000) {
         image(clock_2, width / 2, height / 2, width, height);
       } else if (dialogueTimer <= 4000) {
         image(clock_4, width / 2, height / 2, width, height);
-      } else if (dialogueTimer <= 6000) {
+      } else if (dialogueTimer <= 5000) {
         image(clock_6, width / 2, height / 2, width, height);
       } else {
         image(clock_6, width / 2, height / 2, width, height);
@@ -612,6 +697,7 @@ function scene12() {
       }
       break;
     case 3:
+      isPlaying = false;
       image(bg_office, width / 2, height / 2);
       image(player_sad, width / 2, height / 2, width, height);
       showScene12Dialogue4();
@@ -641,6 +727,7 @@ function scene12() {
 }
 
 function scene13() {
+  bgm_later.pause();
   day = 1;
   resetButton.hide();
   endingButton.hide();
@@ -670,6 +757,10 @@ function scene13() {
         player.stat_list["정신"] +
         player.stat_list["능력"] +
         player.stat_list["인간관계"];
+      if (!isPlaying) {
+        sound_ending.play();
+        isPlaying = true;
+      }
 
       image(ending_bg, width / 2, height / 2, width, height);
       textAlign(LEFT);
@@ -682,7 +773,7 @@ function scene13() {
         image(ending_good, width / 2, height / 2, width, height);
         fill(0, 0, 255);
         text("이대로만 쭉!", 305, height - 90);
-      } else if (total_stat > 4) {
+      } else if (total_stat > 3) {
         image(ending_sad, width / 2, height / 2, width, height);
         fill(0, 255, 0);
         text("그럭저럭", 305, height - 90);
@@ -702,11 +793,18 @@ function scene13() {
           '">'
       );
       resetButton.position(width - 150, 30);
+      resetButton.mousePressed(() => {
+        location.reload();
+      });
       break;
   }
 }
 
 function ending() {
+  if (!playBgmGameover) {
+    sound_gameover.play();
+    playBgmGameover = true;
+  }
   endingComment();
   image(ending_bg, width / 2, height / 2, width, height);
   image(ending_bad, width / 2, height / 2, width, height);

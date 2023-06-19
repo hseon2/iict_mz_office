@@ -11,7 +11,7 @@ function showScene4Dialogue1() {
 
 function showScene4Dialogue2() {
   let dialogue = new Dialogue(
-    "탕비실에서 커피나 한 잔 하고 와야겠다.",
+    "탕비실에서 커피나 한 잔 하고 와야겠다.\n가는 김에 간식도 몇 개 좀 훔쳐와야징",
     player.name
   );
   dialogue.create();
@@ -36,6 +36,7 @@ function showCoffeeScene() {
     image(mnm_hover, width / 2, height / 2, width, height);
     if (mouseIsPressed) {
       mnm = true;
+      sound_clear.play();
     }
   } else {
     image(mnm_basic, width / 2, height / 2, width, height);
@@ -46,12 +47,12 @@ function showCoffeeScene() {
     image(coffee_hover, width / 2, height / 2, width, height);
     if (mouseIsPressed) {
       coffee = true;
+      sound_clear.play();
     }
   } else {
     image(coffee_basic, width / 2, height / 2, width, height);
   }
-
   if (mnm && coffee) {
-    showDialogueNextButton();
+    detail++;
   }
 }
