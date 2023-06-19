@@ -3,13 +3,13 @@ class Player {
     this.name = name;
     this.stat_list = {
       체력: 100,
-      정신: 30,
-      능력: 30,
-      인간관계: 30,
-      금전: 30,
+      정신: 2,
+      능력: 1,
+      인간관계: 2,
+      금전: 6,
     };
     this.min_stat = 0;
-    this.max_stat = 100;
+    this.max_stat = 150;
   }
 
   changeStat(stat, number) {
@@ -38,33 +38,38 @@ class Dialogue {
     dialogueTimer += deltaTime;
     isInConversation = true;
     loop();
-    image(img_dialogue, width / 2, height / 2);
+    image(img_dialogue, width / 2, height / 2, width, height);
     textFont(font_bold);
     fill(255);
     textSize(22);
     textStyle(NORMAL);
     textAlign(LEFT, CENTER);
-    text("[" + this.speaker + "]", 42, 539);
 
-    if (dialogueTimer >= 500) {
+    text("[" + this.speaker + "]", 50, 550);
+    if (dialogueTimer >= 300) {
       textCounter++;
       textFont(font_regular);
       textSize(30);
       textAlign(LEFT, CENTER);
-      text(displayText, 81, 610);
-
+      text(displayText, 81, 614);
+      // if (keyIsPressed && keyCode === 32) {
+      //   // text(this.contents, 81, 614);
+      //   textCounter = this.contents.length;
+      // }
       if (textCounter > this.contents.length) {
         isInConversation = false;
+        textCounter = 0;
         noLoop();
       }
     }
   }
+
   showName() {
-    textFont(font_bold);
+    textFont(font_regular);
     textSize(22);
     textStyle(NORMAL);
     textAlign(LEFT, CENTER);
-    text("[" + this.speaker + "]", 42, 539);
+    text("[" + this.speaker + "]", 50, 550);
   }
 }
 
@@ -74,10 +79,10 @@ class Alert {
   }
 
   create() {
-    image(img_alert, width/2, height/2, width, height);
+    image(img_alert, width / 2, height / 2, width, height);
     textFont(font_regular);
     fill(255);
-    textSize(26);
+    textSize(27);
     textLeading(40);
     textStyle(NORMAL);
     textAlign(CENTER, CENTER);

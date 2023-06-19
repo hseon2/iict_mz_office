@@ -1,23 +1,26 @@
-function showStartDialogue1() {
-  textStyle(ITALIC);
-  let dialogue1 = new Dialogue("플레이어의 이름을 입력해주세요","알림");
-  dialogueTimer += deltaTime;
-  if (dialogueTimer >= 0) {
-    dialogue1.create();
-    showDialogueNextButton();
-  }
-  textStyle(NORMAL);
-}
-
 function showPlayerNameInput() {
-  fill(0);
-  textSize(24);
-  textAlign(CENTER, CENTER);
-  text(
-    "플레이어 이름을 입력해주세요\n(엔터 키를 누르면 입력이 완료됩니다)",
-    width / 2,
-    height / 2
-  );
+  image(player_name, width / 2, height / 2, width, height);
   showNameInput();
 }
 
+function showStartDialogue1() {
+  textStyle(ITALIC);
+  let dialogue = new Dialogue(
+    "MZ 오피스에서는 ‘정신력’, ‘업무능력’, 그리고 ‘대인관계’ 수치를 업무 평가에 반영합니다.",
+    "안내"
+  );
+  dialogue.create();
+  showDialogueNextButton();
+  textStyle(NORMAL);
+}
+
+function showStartDialogue2() {
+  textStyle(ITALIC);
+  let dialogue = new Dialogue(
+    "플레이 도중 사표를 내면 게임이 종료됩니다. \n만약 체력이 0이 되면 주인공이 지쳐서 중도 퇴사 할 수도 있으니 유의하세요!",
+    "안내"
+  );
+  dialogue.create();
+  showDialogueNextButton();
+  textStyle(NORMAL);
+}

@@ -3,20 +3,26 @@ let img_start;
 
 function showStartPage() {
   imageMode(CENTER);
-  image(img_start, width / 2, height / 2);
+  image(img_start, width / 2, height / 2, width, height);
   showStartButton();
   startButton.position(
     width / 2 - startButton.width / 2,
-    height / 2 - startButton.height / 2 + 300
+    height / 2 - startButton.height / 2
   );
-  startButton.size(180, 70);
-  startButton.style("fontSize", "36px");
-  startButton.style("background", "#ffffff");
-  startButton.style("color", "#000099");
-  startButton.style("border-style", "solid");
-  startButton.style("border-width", "6px");
-  startButton.style("font-weight", "bold");
 
+  startButton.size(250, 70);
+  startButton.style("background", "#4C4341");
+  startButton.style("textAlign", "center");
+  startButton.style("fontSize", "41px");
+  startButton.style("border-radius", "10px");
+  startButton.style("border", "4px solid");
+  startButton.style("border-color", "#383332");
+  startButton.style("color", "white");
+  startButton.style("cursor", "pointer");
+  startButton.style("letter-spacing", "4px");
+  startButton.position(width / 2 - startButton.width / 2, height - 105);
+
+  startButton.style("textFont", font_bold);
   fill(255);
 }
 
@@ -25,10 +31,12 @@ function showOpening() {
   switch (detail) {
     case 0:
       image(bg_single, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showOpeningDialogue1();
       break;
     case 1:
       image(bg_single, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showOpeningDialogue2();
       break;
   }
@@ -39,9 +47,15 @@ function startGame() {
   switch (detail) {
     case 0:
       image(bg_single, width / 2, height / 2);
+      image(game_rules1, width / 2, height / 2, width, height);
       showStartDialogue1();
       break;
     case 1:
+      image(bg_single, width / 2, height / 2);
+      image(game_rules2, width / 2, height / 2, width, height);
+      showStartDialogue2();
+      break;
+    case 2:
       image(bg_single, width / 2, height / 2);
       showPlayerNameInput();
       break;
@@ -55,27 +69,18 @@ function scene1() {
       dialogueTimer += deltaTime;
       image(bg_room_noon, width / 2, height / 2);
       if (dialogueTimer <= 2000) {
-        fill(255);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text(
-          "(침대 옆에 비치된 미니 책상 위에 놓여있는 아이폰 알람이 따라라랑 울리는 장면)",
-          width / 2,
-          height / 4
-        );
+        //침대 옆에 비치된 미니 책상 위에 놓여있는 아이폰 알람이 따라라랑 울리는 장
+        fill(0, 0, 0, tp);
+        rectMode(CORNER);
+        rect(0, 0, width, height);
       } else if (dialogueTimer > 2000 && dialogueTimer <= 4000) {
-        fill(255);
-        textStyle(BOLD);
-        textSize(30);
-        text(
-          "(알람 소리를 못 듣고 여전히 잠들어있는 플레이어)",
-          width / 2,
-          height / 4
-        );
+        tp -= 10;
+        fill(0, 0, 0, tp);
+        rect(0, 0, width, height);
       } else if (dialogueTimer > 4000) {
         image(bg_room_morning, width / 2, height / 2);
         showScene1Dialogue1();
+        tp = 255;
       }
       break;
     case 1:
@@ -87,26 +92,29 @@ function scene1() {
       showSelectionModal1();
       break;
     case 3:
+      //지하철+킥보드
       image(bg_office, width / 2, height / 2);
       strokeWeight(1);
       alert = new Alert(
-        "15분 지각.. 그래도 돈 굳었다!\n‘금전’ -10, ‘체력’ -10, ‘인간관계’ -10"
+        "오랜만에 킥보드를 타서 '체력'이 10 하락했습니다.\n킥보드 대여료로 '금전'을 1만큼 사용했습니다.\n15분 지각으로 '대인관계'가 한 단계 하락합니다.\n"
       );
       alert.create();
       break;
     case 4:
+      //택시
       image(bg_office, width / 2, height / 2);
       strokeWeight(1);
       alert = new Alert(
-        "1시간 지각.. 따릉이는 역시 무리였나\n ‘체력’ -15, ‘인간관계’ -15"
+        "택시비로 '금전'을 3만큼 사용했습니다.\n지각을 하지 않아 '대인관계'가 한 단계 상승합니다.\n"
       );
       alert.create();
       break;
     case 5:
+      //따릉
       image(bg_office, width / 2, height / 2);
       strokeWeight(1);
       alert = new Alert(
-        "1분 남기고 무사 도착! 택시비 2만원 쓴 보람이 있네\n‘금전’ -30"
+        "허벅지에 쥐가 나 '체력'이 15 하락했습니다.\n1시간 지각으로 '대인관계'가 두 단계 하락합니다.\n"
       );
       alert.create();
   }
@@ -117,12 +125,9 @@ function scene1() {
 function scene2() {
   switch (detail) {
     case 0:
-      dialogueTimer += deltaTime;
       image(bg_office, width / 2, height / 2);
-      if (dialogueTimer <= 1500) {
-      } else {
-        showScene2Dialogue1();
-      }
+      image(player_sad, width / 2, height / 2, width, height);
+      showScene2Dialogue1();
       break;
     case 1:
       dialogueTimer += deltaTime;
@@ -130,49 +135,39 @@ function scene2() {
         background(0);
         fill(255);
         textStyle(BOLD);
-        textSize(50);
+        textSize(70);
         textAlign(CENTER, CENTER);
         text("다음날", width / 2, height / 2);
       } else {
+        day = 2;
         image(bg_office, width / 2, height / 2);
+        image(player_clean, width / 2, height / 2, width, height);
         showScene2Dialogue2();
       }
       break;
     case 2:
-      background(0);
-      fill(255);
-      textStyle(BOLD);
-      textSize(30);
-      textAlign(CENTER, CENTER);
-      text(
-        "MZ오피스는 개인의 취향에 따라 샐러드파와 든든파로 나뉘어 점심식사를 한다. \n점심으로 누구와 무엇을 먹을지 선택해보자!",
-        width / 2,
-        height / 2
-      );
-      showDialogueNextButton();
+      image(bg_office, width / 2, height / 2);
+      image(player_sad, width / 2, height / 2, width, height);
+      showScene2Dialogue3();
       break;
     case 3:
       image(bg_office, width / 2, height / 2);
-      showScene2Dialogue3();
-      break;
-    case 4:
-      image(bg_office, width / 2, height / 2);
       showSelectionModal2();
       break;
-    case 5:
+    case 4:
       //샐러드파 선택
       image(bg_office, width / 2, height / 2);
       alert = new Alert(
-        "이따 배는 고프겠지만 그래도 동기들이랑 친해졌다 헤헤\n‘인간관계’ +30, ‘체력’ -20"
+        "동기들과 친해져서 '대인관계'가 한 단계 상승했습니다.\n샐러드만으로 배가 안 차 '체력'이 20 감소했습니다.\n"
       );
       alert.create();
       break;
-    case 6:
+    case 5:
       //든든파 선택
       background(255);
       image(bg_office, width / 2, height / 2);
       alert = new Alert(
-        "역시 사람은 밥을 먹어야지. 근데 동기들 나빼고 다 친해진 듯..\n‘체력’ +30, ‘인간관계’ -20"
+        "한정식을 배불리 먹어 '체력'이 20 상승했습니다.\n동기들과 함깨하지 못하여 '대인관계'가 한 단계 하락했습니다.\n"
       );
       alert.create();
       break;
@@ -181,24 +176,29 @@ function scene2() {
 }
 
 function scene3() {
+  day = 2;
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
+      image(boss1, width / 2, height / 2, width, height);
       showScene3Dialogue1();
       showHeader();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(boss1, width / 2, height / 2, width, height);
       showScene3Dialogue2();
       showHeader();
       break;
     case 2:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene3Dialogue3();
       showHeader();
       break;
     case 3:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene3Dialogue4();
       showHeader();
       break;
@@ -214,123 +214,84 @@ function scene3() {
       if (gameover) {
         if (life === 0) {
           alert = new Alert(
-            "실수를 5회 이상 하여 업무능력이 감소했습니다.\n멘탈이 부서져 정신력이 감소했습니다.\n\n'업무능력' : -15, '정신력' : -20\n"
+            "실수를 5회 이상 하여 '업무능력'이 한 단계 하락했습니다.\n멘탈이 부서져 '정신력'이 한 단계 하락했습니다.\n"
           );
           alert.create();
         } else {
           alert = new Alert(
-            "시간 내에 문서를 작성하지 못하여 업무능력이 감소했습니다.\n멘탈이 부서져 정신력이 감소했습니다.\n\n'업무능력' : -25, '정신력' : -10\n"
+            "시간 내에 문서를 작성하지 못하여\n'업무능력'이 한 단계 하락했습니다.\n멘탈이 부서져 '정신력'이 한 단계 하락했습니다.\n"
           );
           alert.create();
         }
       } else if (gameclear) {
         if (life === 5) {
           alert = new Alert(
-            "제한 시간 내에 문서를 작성하여 업무능력이 상승했습니다.\n실수 없이 문서를 작성하여 과장님이 매우 흡족해합니다.\n\n'업무능력' : +30, '대인관계' : +20\n"
+            "제한 시간 내에 실수 없이 문서를 작성하여\n'업무능력'이 한 단계 상승했습니다.\n실수 없이 문서를 작성하여 과장님이 매우 흡족해합니다.\n"
           );
           alert.create();
         } else {
           alert = new Alert(
-            "제한 시간 내에 문서를 작성하여 업무능력이 상승했습니다.\n\n'업무능력' : +30\n"
+            "제한 시간 내에 문서를 작성하여\n'업무능력'이 한 단계 상승했습니다.\n"
           );
           alert.create();
         }
       }
+      showHeader();
       break;
   }
 }
 
 function scene4() {
+  day = 3;
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
+      image(player_sad, width / 2, height / 2, width, height);
       showScene4Dialogue1();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene4Dialogue2();
       break;
     case 2:
-      dialogueTimer += deltaTime;
-      image(bg_office, width / 2, height / 2);
-      if (dialogueTimer <= 2000) {
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text(
-          "회사 탕비실에 비치된 KANU 커피를 집어 들어 종이컵에 커피를 탐",
-          width / 2,
-          height / 4
-        );
-      } else if (dialogueTimer <= 4000) {
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text(
-          "(주변 눈치를 살피다 초콜릿 세 봉지를 주머니에 넣는다)",
-          width / 2,
-          height / 4
-        );
-      } else {
-        showScene4Dialogue3();
-      }
+      showCoffeeScene();
+      break;
+    case 3:
+      image(coffee_desk, width / 2, height / 2, width, height);
+      image(coffee_click, width / 2, height / 2, width, height);
+      showScene4Dialogue3();
       break;
   }
   showHeader();
 }
 
 function scene5() {
+  day = 3;
   switch (detail) {
     case 0:
-      dialogueTimer += deltaTime;
-      if (dialogueTimer <= 2000) {
-        image(bg_office, width / 2, height / 2);
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text(
-          "(양손에 인쇄한 엑셀 자료를 꼭 쥐고 두근두근한 표정을 지음)",
-          width / 2,
-          height / 4
-        );
-      } else {
-        image(bg_office, width / 2, height / 2);
-        showScene5Dialogue1();
-      }
+      image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
+      showScene5Dialogue1();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(boss1, width / 2, height / 2, width, height);
       showScene5Dialogue2();
       break;
     case 2:
-      dialogueTimer += deltaTime;
-      if (dialogueTimer <= 2000) {
-        image(bg_office, width / 2, height / 2);
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text(
-          "과장님의 요청에 따라 자료를 들고 동기의 자리에 감",
-          width / 2,
-          height / 4
-        );
-      } else {
-        image(bg_office, width / 2, height / 2);
-        showScene5Dialogue3();
-      }
+      image(bg_office, width / 2, height / 2);
+      image(player_dirty, width / 2, height / 2, width, height);
+      showScene5Dialogue3();
       break;
   }
   showHeader();
 }
 
 function scene6() {
+  day = 3;
   if (miniGame === 2) {
     Airpods();
-    showNextButton();
   } else {
     airpodsOpening();
   }
@@ -340,22 +301,27 @@ function scene7() {
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
+      image(co_1, width / 2, height / 2, width, height);
       showScene7Dialogue1();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(player_dirty, width / 2, height / 2, width, height);
       showScene7Dialogue2();
       break;
     case 2:
       image(bg_office, width / 2, height / 2);
+      image(co_1, width / 2, height / 2, width, height);
       showScene7Dialogue3();
       break;
     case 3:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene7Dialogue4();
       break;
     case 4:
       image(bg_office, width / 2, height / 2);
+      image(co_1, width / 2, height / 2, width, height);
       showScene7Dialogue5();
       break;
   }
@@ -363,33 +329,58 @@ function scene7() {
 }
 
 function scene8() {
+  day = 3;
   switch (detail) {
     case 0:
       dialogueTimer += deltaTime;
       if (dialogueTimer <= 2000) {
-        image(bg_office, width / 2, height / 2);
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text("시계가 4시를 가리키고 있음", width / 2, height / 4);
+        tp -= 10;
+        image(clock_4, width / 2, height / 2, width, height);
+
+        fill(0, 0, 0, tp);
+        rect(0, 0, width, height);
       } else {
-        image(bg_office, width / 2, height / 2);
+        image(clock_4, width / 2, height / 2, width, height);
         showScene8Dialogue1();
       }
       showHeader();
       break;
     case 1:
+      image(bg_single, width / 2, height / 2);
+      image(player_dirty, width / 2, height / 2, width, height);
+      showScene8Dialogue2();
+      showHeader();
+      break;
+    case 2:
       if (miniGame === 3) {
         dialogueTimer += deltaTime;
-        if (dialogueTimer <= 30000) {
+        if (dialogueTimer <= 20000) {
           Meeting();
         } else {
-          background(255);
-          alert = new Alert("Score : " + meetingScore + "\n~ 스텟이 ~만큼 ..");
+          image(meeting_frame, width / 2, height / 2, width, height);
+          image(meeting_room, width / 2, height / 2, width, height);
+          image(meeting_boss4, width / 2, height / 2, width, height);
+          image(peer1, width / 2, height / 2, width, height);
+          image(peer2, width / 2, height / 2, width, height);
+          image(peer3, width / 2, height / 2, width, height);
+          image(peer4, width / 2, height / 2, width, height);
+          alert = new Alert(
+            "점수를 " +
+              meetingScore +
+              "점 획득했습니다.\n보상으로 체력이 " +
+              round(meetingScore / 10) +
+              " 만큼 증가합니다.\n"
+          );
           alert.create();
+          alertCloseButton.mousePressed(() => {
+            alertCloseButton.hide();
+            scene++;
+            detail = 0;
+            player.changeStat("체력", round(meetingScore / 10));
+          });
         }
       } else {
+        image(bg_single, width / 2, height / 2);
         meetingOpening();
       }
       break;
@@ -397,17 +388,21 @@ function scene8() {
 }
 
 function scene9() {
+  day = 4;
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
+      image(boss1_angry, width / 2, height / 2, width, height);
       showScene9Dialogue1();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(boss1_angry, width / 2, height / 2, width, height);
       showScene9Dialogue2();
       break;
     case 2:
       image(bg_office, width / 2, height / 2);
+      image(player_dirty, width / 2, height / 2, width, height);
       showScene9Dialogue3();
       break;
   }
@@ -415,69 +410,81 @@ function scene9() {
 }
 
 function scene10() {
+  day = 4;
   switch (detail) {
     case 0:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(co_3, width / 2, height / 2, width, height);
       showScene10Dialogue1();
       break;
     case 1:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(co_2, width / 2, height / 2, width, height);
       showScene10Dialogue2();
       break;
     case 2:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(co_1, width / 2, height / 2, width, height);
       showScene10Dialogue3();
       break;
     case 3:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(co_4, width / 2, height / 2, width, height);
       showScene10Dialogue4();
       break;
     case 4:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(player_dirty, width / 2, height / 2, width, height);
       showScene10Dialogue5();
       break;
     case 5:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
       showSelectionModal3();
       break;
     case 6:
       // 뒷담하기
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene10_selection1_1();
       break;
     case 7:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(boss1_angry, width / 2, height / 2, width, height);
       showScene10_selection1_2();
       break;
     case 8:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(player_dirty, width / 2, height / 2, width, height);
       showScene10_selection1_3();
       break;
     case 9:
       // 알림창
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
       alert = new Alert(
-        "상사의 뒷담에 동조하다가 발각되어 \n'인간관계'가 20점 하락했습니다. \n 야근이 확정되어 체력이 30점 하락했습니다."
+        "뒷담에 동조하다가 발각되어 야근이 확정되었습니다.\n'체력'이 30 하락합니다.\n"
       );
       alert.create();
       break;
     case 10:
       // 참기
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene10_selection2_1();
       break;
     case 11:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(boss1_angry, width / 2, height / 2, width, height);
       showScene10_selection2_2();
       break;
     case 12:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
+      image(player_dirty, width / 2, height / 2, width, height);
       showScene10_selection2_3();
       break;
     case 13:
-      image(bg_single, width / 2, height / 2);
+      image(bg_rooftop, width / 2, height / 2, width, height);
       alert = new Alert(
-        "상사의 신임을 얻어\n'인간관계'가 30점 상승했습니다. \n 야근을 피하게 되어 체력이 10점 상승했습니다."
+        "혼자만 야근을 피하게 되어 \n'대인관계'가 한 단계 하락했습니다.\n"
       );
       alert.create();
       break;
@@ -486,42 +493,55 @@ function scene10() {
 }
 
 function scene11() {
+  day = 5;
   switch (detail) {
     case 0:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene11Dialogue1();
+      showHeader();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(boss1, width / 2, height / 2, width, height);
       showScene11Dialogue2();
+      showHeader();
       break;
     case 2:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene11Dialogue3();
+      showHeader();
       break;
     case 3:
       image(bg_office, width / 2, height / 2);
+      image(boss1, width / 2, height / 2, width, height);
       showScene11Dialogue4();
+      showHeader();
       break;
     case 4:
-      background(255);
-      fill(0);
-      textSize(24);
-      textAlign(CENTER, CENTER);
-      text("청첩장 클로즈업", width / 2, height / 2);
+      image(bg_office, width / 2, height / 2);
+      image(wedding_card, width / 2, height / 2, width, height);
       showDialogueNextButton();
+      showHeader();
       break;
     case 5:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene11Dialogue5();
+      showHeader();
       break;
     case 6:
       image(bg_office, width / 2, height / 2);
+      image(boss1, width / 2, height / 2, width, height);
       showScene11Dialogue6();
+      showHeader();
       break;
     case 7:
       image(bg_office, width / 2, height / 2);
+      image(player_sad, width / 2, height / 2, width, height);
       showScene11Dialogue7();
+      showHeader();
       break;
     case 8:
       if (miniGame === 4) {
@@ -529,66 +549,71 @@ function scene11() {
       } else {
         weddingOpening();
       }
+      showHeader();
       break;
     case 9:
+      image(bg_office, width / 2, height / 2, width, height);
+      image(co_2, width / 2, height / 2, width, height);
+      showScene11Dialogue8();
+      showHeader();
+      break;
+    case 10:
       image(bg_office, width / 2, height / 2);
-      alert = new Alert(
-        "축의금으로 " +
-          money +
-          "만 원을 지출하였습니다. \n'금전' :" +
-          statMoney +
-          "점\n인간관계: " +
-          statRelationship +
-          "점"
-      );
-      alert.create();
+      if (money_count === 3) {
+        alert = new Alert(
+          "축의금으로 " +
+            money +
+            "만 원을 지출하여\n'금전'이 " +
+            money_count +
+            "만큼 감소합니다.\n적절한 금액을 맞추어 대인관계가 한 단계 상승합니다.\n"
+        );
+        alert.create();
+      } else {
+        alert = new Alert(
+          "축의금으로 " +
+            money +
+            "만 원을 지출하여\n'금전'이 " +
+            money_count +
+            "만큼 감소합니다.\n적절한 금액을 맞추지 못했습니다.\n"
+        );
+        alert.create();
+      }
+
+      showHeader();
+      break;
       break;
   }
-  showHeader();
 }
 
 function scene12() {
+  day = 5;
   switch (detail) {
     case 0:
-      dialogueTimer += deltaTime;
-      if (dialogueTimer <= 2000) {
-        image(bg_office, width / 2, height / 2);
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text("사무실 시계가 9시를 가리키고 있음", width / 2, height / 4);
-      } else {
-        showScene12Dialogue1();
-      }
+      image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
+      showScene12Dialogue1();
       break;
     case 1:
       image(bg_office, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
       showScene12Dialogue2();
       break;
     case 2:
       dialogueTimer += deltaTime;
-      if (dialogueTimer <= 2000) {
-        image(bg_office, width / 2, height / 2);
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text("시간가는 줄 모르고 열일하는 주인공", width / 2, height / 4);
+      if (dialogueTimer <= 3000) {
+        image(clock_2, width / 2, height / 2, width, height);
       } else if (dialogueTimer <= 4000) {
-        image(bg_office, width / 2, height / 2);
-        fill(0);
-        textStyle(BOLD);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text("시계가 6시를 가리킴", width / 2, height / 4);
+        image(clock_4, width / 2, height / 2, width, height);
+      } else if (dialogueTimer <= 6000) {
+        image(clock_6, width / 2, height / 2, width, height);
       } else {
-        image(bg_office, width / 2, height / 2);
+        image(clock_6, width / 2, height / 2, width, height);
         showScene12Dialogue3();
       }
       break;
     case 3:
       image(bg_office, width / 2, height / 2);
+      image(player_sad, width / 2, height / 2, width, height);
       showScene12Dialogue4();
       break;
     case 4:
@@ -599,7 +624,7 @@ function scene12() {
       //칼퇴
       image(bg_office, width / 2, height / 2);
       alert = new Alert(
-        "칼퇴를 하고 친구들과 즐겁게 금요일 저녁을 보냈습니다.\n '능력' : -20,  '금전' : -10, '체력' : +10, '정신' : +20"
+        "칼퇴를 하고 친구들과 즐겁게 금요일 저녁을 보냈습니다.\n'정신력'이 한 단계 하락했습니다.\n'체력'이 25 상승했습니다.\n"
       );
       alert.create();
       break;
@@ -607,7 +632,7 @@ function scene12() {
       //야근
       image(bg_office, width / 2, height / 2);
       alert = new Alert(
-        "야근을 해서 할 일을 무사히 마무리했습니다.\n '능력' : +20,  '금전' : +10, '체력' : -15, '정신' : -15"
+        "야근을 해서 할 일을 무사히 마무리했습니다.\n'정신력'이 한 단계 상승했습니다.\n'체력'이 15 감소했습니다.\n"
       );
       alert.create();
       break;
@@ -616,48 +641,72 @@ function scene12() {
 }
 
 function scene13() {
+  day = 1;
   resetButton.hide();
   endingButton.hide();
   switch (detail) {
     case 0:
-      image(bg_office, width / 2, height / 2);
-      showScene13Dialogue1();
+      image(bg_single, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
+      showScene13Dialogue0();
       break;
     case 1:
-      image(bg_office, width / 2, height / 2);
-      showScene13Dialogue2();
+      image(bg_single, width / 2, height / 2);
+      image(boss2, width / 2, height / 2, width, height);
+      showScene13Dialogue1();
       break;
     case 2:
-      background(255);
-      fill(0);
-      textSize(24);
-      textAlign(CENTER, CENTER);
-      text("업무평가서", width / 2, height / 2);
-      showDialogueNextButton();
+      image(bg_single, width / 2, height / 2);
+      image(boss2_happy, width / 2, height / 2, width, height);
+      showScene13Dialogue2();
       break;
     case 3:
-      image(bg_office, width / 2, height / 2);
+      image(bg_single, width / 2, height / 2);
+      image(player_clean, width / 2, height / 2, width, height);
+      showScene13Dialogue3();
+      break;
+    case 4:
+      let total_stat =
+        player.stat_list["정신"] +
+        player.stat_list["능력"] +
+        player.stat_list["인간관계"];
+
+      image(ending_bg, width / 2, height / 2, width, height);
+      textAlign(LEFT);
+      textFont(font_bold);
       fill(0);
-      textSize(24);
-      textAlign(CENTER, CENTER);
-      text("플레이어 최종 대사 + 엔딩", width / 2, height / 2);
-      resetButton.show();
+      textSize(30);
+      text(" 총평 : ", 305, height - 150);
+      textSize(60);
+      if (total_stat > 7) {
+        image(ending_good, width / 2, height / 2, width, height);
+        fill(0, 0, 255);
+        text("이대로만 쭉!", 305, height - 90);
+      } else if (total_stat > 4) {
+        image(ending_sad, width / 2, height / 2, width, height);
+        fill(0, 255, 0);
+        text("그럭저럭", 305, height - 90);
+      } else {
+        image(ending_bad, width / 2, height / 2, width, height);
+        fill(255, 0, 0);
+        text("엉망진창", 305, height - 90);
+      }
+      endingComment();
       break;
   }
 }
 
 function ending() {
-  background(255);
+  endingComment();
+  image(ending_bg, width / 2, height / 2, width, height);
+  image(ending_bad, width / 2, height / 2, width, height);
+  textFont(font_bold);
   fill(0);
-  textSize(24);
-  textAlign(CENTER, CENTER);
-  text(
-    player.name +
-      "님의 사표를 승인합니다. \n귀하의 업무평가 결과는 다음과 같습니다.\n ~~~\n당사는 귀하의 무궁한 발전을 기원하겠습니다.",
-    width / 2,
-    height / 2
-  );
+  textAlign(LEFT);
+  textSize(30);
+  text(" 총평 : ", 305, height - 150);
+  fill(255, 0, 0);
+  textSize(60);
+  text("의지박약", 305, height - 90);
+  endingComment();
 }
-
-//--------------------------
-// -------- 미니게임 ---------

@@ -9,27 +9,27 @@ function showScene8Dialogue1() {
   showDialogueNextButton();
 }
 
+function showScene8Dialogue2() {
+  let dialogue = new Dialogue(
+    "ㅁ..뭐야 회의 중인데 다들 딴짓만 하네?\n부장님이 좀 슬퍼보이시는데.. 자칫하다간 퇴근이 늦어지겠어 ㅠ",
+    player.name
+  );
+  dialogue.create();
+  showDialogueNextButton();
+}
 
-
-function meetingOpening(){
-  background(255);
-  fill(0);
-  textSize(50);
-  textAlign(CENTER);
-  textStyle(BOLD);
-  fill(255, 0, 0);
-  textSize(30);
-  text(
-    "회의 중에 딴짓 중인 동료들ㅠㅠ\n회의를 빨리 끝내야 회의록 작성도 금방 끝내고 퇴근하는데 도와주질 않네ㅜㅜ\n심지어 과잔님이 심기가 불편해보이신다. 동료들 때문에 내 업무평가까지 망칠 순 없다!\n제한 시간 30초 동안 각 동료에 맞는 키보드 버튼을 이용하여 딴짓하는 동료들을 정신차리게 하자.\n잘못 누르면 감점되니 주의!",
-      640,
-      400
-    );
-  
-  fill(0);
+function meetingOpening() {
+  resetButton.hide();
+  endingButton.hide();
+  image(meeting_frame, width / 2, height / 2, width, height);
+  image(meeting_room, width / 2, height / 2, width, height);
+  image(meeting_boss1, width / 2, height / 2, width, height);
+  image(peer1, width / 2, height / 2, width, height);
+  image(peer2, width / 2, height / 2, width, height);
+  image(peer3, width / 2, height / 2, width, height);
+  image(peer4, width / 2, height / 2, width, height);
+  image(meeting_opening, width / 2, height / 2, width, height);
 
   showStartButton();
-  startButton.position(
-    width / 2 - startButton.width / 2,
-    height *3/ 4
-  );
+  startButton.position(width / 2 - startButton.width / 2, (height * 4.5) / 7);
 }

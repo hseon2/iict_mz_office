@@ -43,14 +43,13 @@ function Excel() {
   console.log(life);
   resetButton.hide();
   endingButton.hide();
-  excel_timer += deltaTime / 1000;
   let timer_w = (excel_playtime - excel_timer) / excel_playtime;
+  if (!gameover && !gameclear) {
+    excel_timer += deltaTime / 1000;
 
-  if (timer_w <= 0) {
-    gameover = true;
-  }
-
-  if (!gameover) {
+    if (timer_w <= 0 && !gameclear) {
+      gameover = true;
+    }
     switch (excel_stage) {
       case 1:
         image(excel_1, width / 2, height / 2, width, height);
@@ -119,11 +118,11 @@ function Excel() {
         image(excel_22, width / 2, height / 2, width, height);
         break;
       case 23:
-        image(excel_22, width / 2, height / 2, width, height);
         gameclear = true;
-        timer_w = 705;
         break;
     }
+  } else {
+    image(excel_22, width / 2, height / 2, width, height);
   }
   if (life === 5) {
     image(excel_life5, width / 2, height / 2, width, height);
@@ -140,15 +139,34 @@ function Excel() {
     timer_w = 0;
   }
   image(excel_header1, width / 2, height / 2, width, height);
-  fill(255, 237, 190);
+  fill(255, 50, 50);
   rect(70, 30, timer_w * 705, 30);
   image(excel_header2, width / 2, height / 2, width, height);
 
   if (gameover) {
     image(excel_over, width / 2, height / 2, width, height);
     showDialogueNextButton();
+    dialogueNextButton.mousePressed(() => {
+      detail++;
+      dialogueTimer = 0;
+      textCounter = 0;
+      isInConversation = false;
+      dialogueNextButton.hide();
+      player.changeStat("능력", -1);
+      player.changeStat("정신", -1);
+      loop();
+    });
   } else if (gameclear) {
     image(excel_clear, width / 2, height / 2, width, height);
     showDialogueNextButton();
+    dialogueNextButton.mousePressed(() => {
+      detail++;
+      dialogueTimer = 0;
+      textCounter = 0;
+      isInConversation = false;
+      dialogueNextButton.hide();
+      player.changeStat("능력", +1);
+      loop();
+    });
   }
 }

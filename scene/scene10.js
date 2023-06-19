@@ -1,7 +1,7 @@
 function showScene10Dialogue1() {
   let dialogue = new Dialogue(
     "아니 4시쯤이면 누구나 졸린 거 아니냐고!",
-    "동료2"
+    "동기3"
   );
   dialogue.create();
   showDialogueNextButton();
@@ -9,8 +9,8 @@ function showScene10Dialogue1() {
 
 function showScene10Dialogue2() {
   let dialogue = new Dialogue(
-    "내 말이. 다들 업무 시간에 카톡하면서 왜 우리한테만 난리람",
-    "동료1"
+    "내 말이. \n다들 업무 시간에 카톡하면서 왜 우리한테만 난리람. 난 당당해!",
+    "동기2"
   );
   dialogue.create();
   showDialogueNextButton();
@@ -27,8 +27,8 @@ function showScene10Dialogue3() {
 
 function showScene10Dialogue4() {
   let dialogue = new Dialogue(
-    "너네 아침마다 과장님 회사에서 머리 감고 말리는 거 알아? \n감을 머리카락도 몇 가닥 없는 것 같은데.",
-    "동료3"
+    "뭐??? 나 저번에 유튜브 잠깐 봤다고 시말서 썼는데..",
+    "동기4"
   );
   dialogue.create();
   showDialogueNextButton();
@@ -36,43 +36,33 @@ function showScene10Dialogue4() {
 
 function showScene10Dialogue5() {
   let dialogue = new Dialogue(
-    "(혼잣말) 하.. 과장님 솔직히 싫긴 한데 뒷담을 해도 되려나?",
+    "(혼잣말) 하.. 입이 근질근질한데. \n나도 한 마디 거들어, 아님 말아?",
     player.name
   );
   dialogue.create();
   showDialogueNextButton();
 }
 
-function showSelectionModal3(){
-  
-  let modal = new SelectionModal("입이 근질근질한데 이걸 참아, 말아?");
-  modal.create();
-  selection3_1.show();
-  selection3_2.show();
-
-  selection3_1.position(width/2-130-55, height/2-40);
-  selection3_2.position(width/2+130-95, height/2-40);
-
-  selection3_1.size(150, 100);
-  selection3_2.size(150, 100);
-
-  // 뒷담하기
-  selection3_1.mousePressed(() => {
-    detail = 6;
-    selection3_1.hide();
-    selection3_2.hide();
-  })
-  // 참기
-  selection3_2.mousePressed(() => {
-    detail = 10;
-    selection3_1.hide();
-    selection3_2.hide();
-  })
+function showSelectionModal3() {
+  image(img_selection3, width / 2, height / 2, width, height);
+  let x = mouseX;
+  let y = mouseY;
+  if (x > 200 && x < 569 && y > 190 && y < 540) {
+    image(img_selection3_1, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 6;
+    }
+  } else if (x > 695 && x < 1060 && y > 190 && y < 540) {
+    image(img_selection3_2, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 10;
+    }
+  }
 }
 
 function showScene10_selection1_1() {
   let dialogue = new Dialogue(
-    "그러니까 ㅋㅋㅋ 곧 있으면 과장님도 부장님처럼 대머리 되겠어~",
+    "저번에 과장님 알잘딱깔센도 알잘떡걸센이라고 하시던데ㅋㅋㅋㅋ\n정확히 알지도 못하면 쓰지나 말지",
     player.name
   );
   dialogue.create();
@@ -81,7 +71,7 @@ function showScene10_selection1_1() {
 
 function showScene10_selection1_2() {
   let dialogue = new Dialogue(
-    "회의록 작성하랬더니 다들 여기서 감히 상사 뒷담을 까면서 놀아?\n너네 전부 야근해!",
+    "회의록 작성하랬더니 다들 여기서 감히 상사 뒷담을 까면서 놀아?\n오늘 전부 야근이야!",
     "과장"
   );
   dialogue.create();
@@ -89,15 +79,11 @@ function showScene10_selection1_2() {
 }
 
 function showScene10_selection1_3() {
-  let dialogue = new Dialogue(
-    "...망했다",
-    player.name
-  );
+  let dialogue = new Dialogue("...망했다", player.name);
   dialogue.create();
   showDialogueNextButton();
 
   dialogueNextButton.mousePressed(() => {
-    player.changeStat("인간관계", -20);
     player.changeStat("체력", -30);
     detail++;
     dialogueTimer = 0;
@@ -110,7 +96,7 @@ function showScene10_selection1_3() {
 
 function showScene10_selection2_1() {
   let dialogue = new Dialogue(
-    "에이 머리숱으로 뭐라 하는 건 선 넘었지~ 농담이 심하다 ㅎㅎ",
+    "...",
     player.name
   );
   dialogue.create();
@@ -119,7 +105,9 @@ function showScene10_selection2_1() {
 
 function showScene10_selection2_2() {
   let dialogue = new Dialogue(
-    "회의록 작성하랬더니 다들 여기서 감히 상사 뒷담을 까면서 놀아?\n" + player.name + "만 내려가서 회의록 작성하고, 나머지는 전부 야근이야!",
+    "회의록 작성하랬더니 다들 여기서 감히 상사 뒷담을 까면서 놀아?\n" +
+      player.name +
+      "만 내려가서 회의록 작성하고, 나머지는 전부 야근이야!",
     "과장"
   );
   dialogue.create();
@@ -128,15 +116,14 @@ function showScene10_selection2_2() {
 
 function showScene10_selection2_3() {
   let dialogue = new Dialogue(
-    "헉 저기서 나타나실 줄이야.. 역시 참길 잘 했어",
+    "헉 저기서 나타나실 줄이야.. 역시 참길 잘 했어.\n근데 나만 쏙 빠져나가니까 좀 그런데..",
     player.name
   );
   dialogue.create();
   showDialogueNextButton();
-  
+
   dialogueNextButton.mousePressed(() => {
-    player.changeStat("인간관계", 30);
-    player.changeStat("체력", 10);
+    player.changeStat("인간관계", -1);
     detail++;
     dialogueTimer = 0;
     textCounter = 0;

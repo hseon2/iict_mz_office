@@ -1,16 +1,10 @@
 function createStartButton() {
   startButton = createButton("START");
 
-  startButton.size(100, 40);
-  startButton.style("background", "#ffffff");
-  startButton.style("textAlign", "center");
-  startButton.style("fontSize", "20px");
-  startButton.style("textFont", "Arial");
-
   startButton.hide();
   startButton.position(
     width / 2 - startButton.width / 2,
-    height / 2 - startButton.height / 2 + 20
+    height / 2 - startButton.height / 2
   );
 }
 
@@ -52,23 +46,14 @@ function createDialogueNextButton() {
 
 function createAlertCloseButton() {
   alertCloseButton = createButton("확인");
-  // alertCloseButton.html(
-  //   '<img src="' +
-  //     "assets/alert_close_button.png" +
-  //     '" width="' +
-  //     155 +
-  //     '" height="' +
-  //     57 +
-  //     '">'
-  // );
 
   alertCloseButton.style("background-color", "white");
   alertCloseButton.style("color", "black");
-  alertCloseButton.style("font-size", "24px");
+  alertCloseButton.style("font-size", "26px");
   alertCloseButton.style("font-weight", "bold");
   alertCloseButton.style("cursor", "pointer");
   alertCloseButton.style("border", "none");
-  alertCloseButton.size(155,57);
+  alertCloseButton.size(155, 57);
   alertCloseButton.hide();
 }
 
@@ -78,63 +63,64 @@ function createNameInput() {
 }
 
 function createResetButton() {
-  resetButton = createButton("다시하기");
+  resetButton = createButton("");
+  resetButton.html(
+    '<img src="' +
+      "assets/reset.png" +
+      '" width="' +
+      90 +
+      '" height="' +
+      80 +
+      '">'
+  );
+
+  resetButton.style("background-color", "transparent");
+  resetButton.style("cursor", "pointer");
+  resetButton.style("border", "none");
   resetButton.hide();
 }
 
 function createEndingButton() {
-  endingButton = createButton("사표내기");
+  endingButton = createButton("");
+  endingButton.html(
+    '<img src="' +
+      "assets/ending.png" +
+      '" width="' +
+      90 +
+      '" height="' +
+      80 +
+      '">'
+  );
+
+  endingButton.style("background-color", "transparent");
+  endingButton.style("cursor", "pointer");
+  endingButton.style("border", "none");
   endingButton.hide();
 }
 
-function createSelection1() {
-  selection1_1 = createButton("지하철+킥보드");
-  selection1_2 = createButton("따릉이");
-  selection1_3 = createButton("택시");
 
-  selection1_1.hide();
-  selection1_2.hide();
-  selection1_3.hide();
-}
-
-function createSelection2() {
-  selection2_1 = createButton("샐러드파");
-  selection2_2 = createButton("든든파");
-
-  selection2_1.hide();
-  selection2_2.hide();
-}
-
-function createSelection3() {
-  selection3_1 = createButton("나도 같이 욕 좀 해야겠다");
-  selection3_2 = createButton("그래도 욕은 하지 말아야지");
-
-  selection3_1.hide();
-  selection3_2.hide();
-}
-
-function createSelection4() {
-  selection4_1 = createButton("아 몰라, 그냥 칼퇴!");
-  selection4_2 = createButton("하루쯤 야근하는 것도 나쁘지 않지");
-
-  selection4_1.hide();
-  selection4_2.hide();
-}
 
 function showStartButton() {
   startButton.show();
-  startButton.position(
-    width / 2 - startButton.width / 2,
-    height / 2 - startButton.height / 2 + 20
-  );
+  startButton.size(220, 80);
+  startButton.style("fontSize", "36px");
+  startButton.style("background-color", "transparent");
+  startButton.style("color", "#ffffff");
+  startButton.style("border-style", "solid");
+  startButton.style("border-width", "4px");
+  startButton.style("border-color", "#ffffff");
+  startButton.style("font-weight", "bold");
+  startButton.style("letter-spacing", "1px");
 
+  startButton.style("textFont", font_regular);
   startButton.mousePressed(() => {
     if (!gameStarted) {
       gameStarted = true;
+      startButton.hide();
     } else {
       miniGame += 1;
+      startButton.hide();
     }
-    startButton.hide();
   });
 }
 
@@ -162,7 +148,6 @@ function showDialogueNextButton() {
     detail++;
     dialogueTimer = 0;
     textCounter = 0;
-    isInConversation = false;
     dialogueNextButton.hide();
     loop();
   });
@@ -170,7 +155,7 @@ function showDialogueNextButton() {
 
 function showAlertCloseButton() {
   alertCloseButton.show();
-  alertCloseButton.position(640-155/2, 476);
+  alertCloseButton.position(640 - 155 / 2, 465);
   alertCloseButton.mousePressed(() => {
     alertCloseButton.hide();
     scene++;
@@ -180,10 +165,11 @@ function showAlertCloseButton() {
 
 function showNameInput() {
   nameInput.show();
-  nameInput.position(
-    width / 2 - nameInput.width / 2,
-    height / 2 - nameInput.height / 2 + 40
-  );
+  nameInput.position(439, 391);
+  nameInput.size(402, 94);
+  nameInput.style("border-radius", "10px");
+  nameInput.style("font-size", "34px");
+  nameInput.style("text-align", "CENTER");
   nameInput.changed(setPlayerName);
 }
 
@@ -202,28 +188,24 @@ function setPlayerName() {
 
 function showResetButton() {
   resetButton.show();
-  resetButton.position(width * 0.85, height * 0.03);
+  resetButton.position(width - 115, 10);
+
   resetButton.mousePressed(() => {
-    gameStarted = false;
-    resetButton.hide();
-    endingButton.hide();
-    nextButton.hide();
-    delete player;
-    scene = -1;
-    miniGame = 0;
-    detail = 0;
-    dialogueTimer = 0;
-    showStartPage();
+    location.reload();
   });
 }
 
 function showEndingButton() {
   endingButton.show();
-  endingButton.position(width * 0.92, height * 0.03);
+  endingButton.position(width - 195, 10);
   endingButton.mousePressed(() => {
-    resetButton.hide();
     endingButton.hide();
     nextButton.hide();
+    dialogueNextButton.hide();
+    miniGame = 0;
+    detail = 0;
+    dialogueTimer = 0;
     scene = 100;
+    ending();
   });
 }

@@ -25,32 +25,51 @@ function showScene2Dialogue3() {
 }
 
 function showSelectionModal2(){
-  
-  let modal = new SelectionModal("점심 메뉴 선택");
-  modal.create();
-  selection2_1.show();
-  selection2_2.show();
+  image(img_selection2, width / 2, height / 2, width, height);
+  let x = mouseX;
+  let y = mouseY;
+  if (x > 200 && x < 569 && y > 190 && y < 540) {
+    image(img_selection2_1, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 4;
+      player.changeStat("체력", -20);
+      player.changeStat("인간관계", +1);
+    }
+  } else if (x > 695 && x < 1060 && y > 190 && y < 540) {
+    image(img_selection2_2, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 5;
+      player.changeStat("체력", 20);
+      player.changeStat("인간관계", -1);
+    }
+  }
 
-  selection2_1.position(width/2-130-55, height/2-40);
-  selection2_2.position(width/2+130-95, height/2-40);
 
-  selection2_1.size(150, 100);
-  selection2_2.size(150, 100);
+  // let modal = new SelectionModal("점심 메뉴 선택");
+  // modal.create();
+  // selection2_1.show();
+  // selection2_2.show();
 
-  // 샐러드파
-  selection2_1.mousePressed(() => {
-    detail = 5;
-    selection2_1.hide();
-    selection2_2.hide();
-    player.changeStat("인간관계", 30);
-    player.changeStat("체력", -20);
-  })
-  // 든든파
-  selection2_2.mousePressed(() => {
-    detail = 6;
-    selection2_1.hide();
-    selection2_2.hide();
-    player.changeStat("인간관계", -20);
-    player.changeStat("체력", 30);
-  })
+  // selection2_1.position(width/2-130-55, height/2-40);
+  // selection2_2.position(width/2+130-95, height/2-40);
+
+  // selection2_1.size(150, 100);
+  // selection2_2.size(150, 100);
+
+  // // 샐러드파
+  // selection2_1.mousePressed(() => {
+  //   detail = 5;
+  //   selection2_1.hide();
+  //   selection2_2.hide();
+  //   player.changeStat("인간관계", 30);
+  //   player.changeStat("체력", -20);
+  // })
+  // // 든든파
+  // selection2_2.mousePressed(() => {
+  //   detail = 6;
+  //   selection2_1.hide();
+  //   selection2_2.hide();
+  //   player.changeStat("인간관계", -20);
+  //   player.changeStat("체력", 30);
+  // })
 }

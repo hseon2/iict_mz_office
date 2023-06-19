@@ -26,48 +26,34 @@ function showScene1Dialogue3() {
 }
 
 function showSelectionModal1() {
-  let modal = new SelectionModal("출근 방법 선택");
-  modal.create();
-  selection1_1.show();
-  selection1_2.show();
-  selection1_3.show();
+  image(img_selection1, width / 2, height / 2, width, height);
+  let x = mouseX;
+  let y = mouseY;
+  if (x > 37 && x < 407 && y > 240 && y < 590) {
+    image(img_selection1_1, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 3;
+      player.changeStat("금전", -1);
+      player.changeStat("체력", -10);
+      player.changeStat("인간관계", -1);
+    }
+  } else if (x > 450 && x < 819 && y > 240 && y < 590) {
+    image(img_selection1_2, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 4;
+      player.changeStat("금전", -3);
+      player.changeStat("체력", 0);
+      player.changeStat("인간관계", 1);
+    }
+  } else if (x > 863 && x < 1233 && y > 240 && y < 590) {
+    image(img_selection1_3, width / 2, height / 2, width, height);
+    if (mouseIsPressed) {
+      detail = 5;
+      player.changeStat("금전", 0);
+      player.changeStat("체력", -15);
+      player.changeStat("인간관계", -2);
+    }
+  }
 
-  selection1_1.position(width / 2 - 130 - 50, height / 2 - 40);
-  selection1_2.position(width / 2 - 50, height / 2 - 40);
-  selection1_3.position(width / 2 + 130 - 50, height / 2 - 40);
 
-  selection1_1.size(100, 100);
-  selection1_2.size(100, 100);
-  selection1_3.size(100, 100);
-
-  // 지하철 + 킥보드
-  selection1_1.mousePressed(() => {
-    detail = 3;
-    selection1_1.hide();
-    selection1_2.hide();
-    selection1_3.hide();
-    player.changeStat("금전", -10);
-    player.changeStat("체력", -10);
-    player.changeStat("인간관계", -10);
-  });
-  // 따릉이
-  selection1_2.mousePressed(() => {
-    detail = 4;
-    selection1_1.hide();
-    selection1_2.hide();
-    selection1_3.hide();
-    player.changeStat("금전", -30);
-    player.changeStat("체력", 0);
-    player.changeStat("인간관계", 0);
-  });
-  // 택시
-  selection1_3.mousePressed(() => {
-    detail = 5;
-    selection1_1.hide();
-    selection1_2.hide();
-    selection1_3.hide();
-    player.changeStat("금전", 0);
-    player.changeStat("체력", -15);
-    player.changeStat("인간관계", -15);
-  });
 }

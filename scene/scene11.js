@@ -17,7 +17,7 @@ function showScene11Dialogue3() {
 }
 function showScene11Dialogue4() {
   let dialogue = new Dialogue(
-    "나야 뭐. 늘 비슷하지~ \n근데 별건 아니고 여기..",
+    "나야 뭐 평소처럼 국밥 든든하게 먹었지. \n근데 별건 아니고 여기..",
     "과장"
   );
   dialogue.create();
@@ -48,21 +48,19 @@ function showScene11Dialogue7() {
 }
 
 function weddingOpening() {
-  background(255);
-  fill(0);
-  textSize(50);
-  textAlign(CENTER);
-  textStyle(BOLD);
-  text("경조금으로 얼마를 내야 할까?", 640, 200);
-  fill(255, 0, 0);
-  textSize(30);
-  text(
-    "과장님과 아직 그리 친하지 않은 사이긴 한데.. \n 부서도 같고, 뭔가 많이 내야 할 것 같아.\n 하지만! 난 이제 막 입사해서 갓 돈 벌기 시작한 신입이라고..\n 그래도,. 뷔페 가격 생각하면 많이 내야겠지?\n\n 에라 모르겠다. 룰렛으로 정해보자. \nSpace바를 눌러서 금액을 랜덤으로 결정해보자!",
-    640,
-    400
-  );
-  fill(0);
+  resetButton.hide();
+  endingButton.hide();
+  image(wedding_opening, width / 2, height / 2, width, height);
 
   showStartButton();
-  startButton.position(width / 2 - startButton.width / 2, (height * 3) / 4);
+  startButton.position(width / 2 - startButton.width / 2, (height * 5) / 7);
+}
+
+function showScene11Dialogue8() {
+  let dialogue = new Dialogue(
+    money +"만 원?\n" + wedding_comment,
+    "동료2"
+  );
+  dialogue.create();
+  showDialogueNextButton();
 }
