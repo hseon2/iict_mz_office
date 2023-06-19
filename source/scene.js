@@ -689,9 +689,19 @@ function scene13() {
       } else {
         image(ending_bad, width / 2, height / 2, width, height);
         fill(255, 0, 0);
-        text("엉망진창", 305, height - 90);
+        text("엉망진창", 315, height - 90);
       }
       endingComment();
+      resetButton.html(
+        '<img src="' +
+          "assets/reset.png" +
+          '" width="' +
+          130 +
+          '" height="' +
+          120 +
+          '">'
+      );
+      resetButton.position(width - 150, 30);
       break;
   }
 }
@@ -707,6 +717,16 @@ function ending() {
   text(" 총평 : ", 305, height - 150);
   fill(255, 0, 0);
   textSize(60);
-  text("의지박약", 305, height - 90);
+  text("의지박약", 315, height - 90);
+  resetButton.html(
+    '<img src="' +
+      "assets/reset.png" +
+      '" width="' +
+      130 +
+      '" height="' +
+      120 +
+      '">'
+  );
+  resetButton.position(width - 150, 30);
   endingComment();
 }

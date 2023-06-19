@@ -18,7 +18,7 @@ let selection2_1;
 let selection2_2;
 let alert;
 let textCounter = 0;
-let speedText = 50;
+let speedText = 100;
 let isInConversation;
 let day = 1;
 let tp = 255;
